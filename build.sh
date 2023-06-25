@@ -15,5 +15,3 @@ celery -A core beat --loglevel=info &
 python manage.py collectstatic
 python manage.py migrate
 python manage.py create_traders
-
-wait
