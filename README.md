@@ -11,6 +11,17 @@ The project is built using Django, MongoDB, Celery and Django Channels.
   * Real time communication using Websocket and Django Channels
 * Stock & User Management by Admin
 
+
+## Images
+### Login Page
+![Login Page](/static/images/login.png)
+### Register Page
+![Signup Page](/static/images/register.png)
+### Stock Monitoring Page
+![Stock Monitor Page](/static/images/stock-monitor.png)
+### Admin Traders Mgt Page
+![Admin Dashboard Page](/static/images/admin-trader-mgt.png)
+
 ## Project SetUp
 
 Clone the project and navigate into the project directory.
@@ -51,6 +62,19 @@ cp .env.example .env
 Start the server and run the local development application using the command
 ```bash
 python manage.py runserver
+```
+
+Start the redis server
+```bash
+redis-server
+```
+
+Start celery beat and worker
+```bash
+celery -A core beat --loglevel=info
+```
+```bash
+celery -A core worker --loglevel=info
 ```
 
 The development server will be open at http://127.0.0.1:8000/
