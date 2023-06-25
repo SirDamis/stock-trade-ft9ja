@@ -1,0 +1,152 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FT9JA Stock Trading</title>
+  <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  
+</head>
+<body>
+  <!-- Navbar -->
+	<nav class="navbar">
+		<div class="container">
+			<a href="#" class="logo">FT9JA</a>
+			<ul class="nav-menu">
+
+				<div class="auth">	
+					{% if user.is_staff  %}
+						<li><a href="/logout">Logout</a></li>
+            <li><a href="/dashboard/admin">Admin</a></li>
+          {% elif user.is_authenticated %}
+            <li><a href="/logout">Logout</a></li>
+					{% else %}
+						<li><a href="/login">Login</a></li>
+						<li class="get-started"><a href="/register">Get Started</a></li>
+					{% endif %}
+				</div>
+			</ul>
+		</div>
+	</nav>
+  <div class="container">
+    <div class="trader-info">
+      <div>Welcome, <b>{{ user.name|upper }} </b></div>
+      <div>Current Amount: 
+        <b class="current_balance">${{ current_balance|floatformat:2|intcomma }}</b><p></p>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+      <h1>Live Stock Chart (Last 1 hour)</h1>
+      <div id="lineChartContainer">
+        <canvas id="lineChart" width="300" height="200"></canvas>
+      </div>
+    </div>   
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // Establish a WebSocket connection
+    const socket = new WebSocket('ws://localhost:8000/ws/trade/');
+
+    // Connection established event
+    socket.onopen = () => {
+      console.log('WebSocket connection established.');
+    };
+
+    // Sample data for profit and time intervals (1 minute)
+    let profitData = []
+    let timeIntervals = []
+
+    let user_trade = JSON.parse("{{ user_trade|escapejs }}");
+    Object.entries(user_trade).forEach(([id, values]) => {
+      profitData.push(values.profit_loss);
+      let retreiveDate = new Date(values.timestamp);
+      const formattedTime = retreiveDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      timeIntervals.push(formattedTime);
+    });
+
+    // Update the chart data and labels
+    const startIndex = Math.max(timeIntervals.length - 60, 0);
+    timeIntervals = timeIntervals.slice(startIndex);
+    profitData = profitData.slice(startIndex);
+
+
+    // Create the line chart
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timeIntervals,
+            datasets: [{
+                label: 'Profit',
+                data: profitData,
+                borderColor: 'blue',
+                backgroundColor: 'transparent',
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Profit'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Time'
+                    }
+                }
+            }
+        }
+    });
+
+    // Receive message from the server
+    socket.onmessage = (e) => {
+      const message = JSON.parse(e.data);
+      profit_loss = message.profit_loss;
+      Object.entries(profit_loss).forEach(([id, profit]) => {
+        if (id == "{{ trader_id }}") {
+          // Update the user's balance
+          const balanceElement = document.querySelector(".trader-info .current_balance");
+          const currentBalance = parseFloat("{{ current_balance|floatformat:2|intcomma }}}}"); 
+          const newBalance = currentBalance + profit; 
+          balanceElement.innerText = "$" + newBalance.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+          // Get the current time as a new time interval
+          const currentTime = new Date();
+          const hours = currentTime.getHours().toString().padStart(2, '0');
+          const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+          const newTimeInterval = `${hours}:${minutes}`;
+
+          timeIntervals.push(newTimeInterval);
+          profitData.push(profit);
+
+          // Access the line chart instance
+          const lineChart = Chart.getChart('lineChart');
+
+          // Update the chart data and labels
+          const startIndex = Math.max(timeIntervals.length - 60, 0);
+          lineChart.data.labels = timeIntervals.slice(startIndex);
+          lineChart.data.datasets[0].data = profitData.slice(startIndex);
+
+          // Update the chart
+          lineChart.update();
+        }
+    });
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% load static %}
+{% load humanize %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>FT9JA - Admin Dashboard</title>
+
+    <style>
+        .container .trader-details a {
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #333;
+        }
+
+        .container p {
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #888;
+        }
+
+        .container div {
+        font-size: 18px;
+        margin-bottom: 10px;
+        }
+
+        .container br {
+        margin-bottom: 20px;
+        }
+
+        /* Updated style.css */
+        .card {
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        }
+
+        .card-header {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        }
+
+        .trader-card {
+        display: block;
+        text-decoration: none;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        }
+
+        .trader-card:hover {
+        background-color: #043774;
+        color: #ffffff;
+        }
+
+        .trader-card h3 {
+        margin: 0;
+        font-size: 16px;
+        margin-bottom: 5px;
+        }
+
+        .trader-card p {
+        margin: 0;
+        font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+	<nav class="navbar">
+		<div class="container">
+			<a href="#" class="logo">FT9JA</a>
+			<ul class="nav-menu">
+                <div class="auth">	
+                    {% if user.is_authenticated %}
+                        <li><a href="/logout">Logout</a></li>
+                    {% elif user.is_staff %}
+                        <li><a href="/logout">Logout</a></li>
+                        <li><a href="/dashboard/admin">Dashboard</a></li>
+					{% else %}
+						<li><a href="/login">Login</a></li>
+						<li class="get-started"><a href="/register">Get Started</a></li>
+					{% endif %}
+				</div>
+			</ul>
+		</div>
+	</nav>
+
+    <section class="container">
+        <div class="trader-details card">
+            <div class="card-header">Click on trader to view stock information</div>
+            <br>
+            <div class="card-body">
+                {% for trader in all_traders %}
+                <a href="/dashboard/admin/trader/{{trader.id}}" class="trader-card"><p>{{ trader.user.name|upper}} | {{ trader.balance }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</body>
+</html>

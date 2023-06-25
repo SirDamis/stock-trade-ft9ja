@@ -1,0 +1,388 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Poppins, "sans-serif";
+  margin: 0;
+  font-weight: 300;
+  font-size: 14px;
+  overflow-x: hidden;
+  background: #fafafafa;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+.container {
+  padding: 0 50px;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  height: 70px;
+}
+.navbar .container .hamburger {
+  display: none;
+  padding: 20px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.navbar .container .hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: #1e1e1e;
+  margin: 6px auto;
+  display: block;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.navbar .container .hamburger.active {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.navbar .container .hamburger.active .top {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+  -webkit-transform: translateY(5px);
+  transform: translateY(5px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar .container .hamburger.active .middle {
+  opacity: 0;
+}
+
+.navbar .container .hamburger.active .bottom {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+  -webkit-transform: translateY(-13px) rotate(90deg);
+  transform: translateY(-13px) rotate(90deg);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Navigation */
+
+.navbar .logo {
+  font-weight: 800;
+  font-size: 20px;
+  color: #043774;
+  line-height: 40px;
+}
+.navbar ul {
+  display: flex;
+}
+.navbar ul li {
+  font-weight: 600;
+  font-size: 14px;
+  list-style: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.navbar ul li:hover {
+  background: #4640de;
+}
+.navbar ul li:hover a {
+  color: white;
+}
+.navbar ul .auth {
+  display: flex;
+  margin: 0 0 0 30px;
+}
+.navbar ul .auth .get-started {
+  background: #eeedfb;
+  border-radius: 7px;
+}
+
+.navbar ul li a {
+  color: #302f2f;
+}
+.navbar ul .auth .get-started a {
+  color: #4640de;
+}
+
+
+/* Authentication */
+.auth-body {
+  background-color: #043774;
+}
+.auth {
+  /* background-color: #fafafa; */
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 100px 0;
+  justify-items: center;
+}
+.auth .auth-card {
+  background-color: #ffffff;
+  box-shadow: 0 10px 10px rgba(72, 209, 137, 0.1);
+  border-radius: 10px;
+  width: 35%;
+}
+.auth .auth-card .form-block {
+  text-align: center;
+}
+.auth .auth-card h3 {
+  font-size: 25px;
+  color: #043774;
+  margin: 6px 0 0 0;
+}
+
+.auth .auth-card p {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 0 6px;
+}
+.auth .auth-card p a {
+  color: #043774;
+}
+.auth .auth-card p a:hover {
+  text-decoration: underline;
+}
+.auth-card .test {
+  padding: 20px 30px;
+}
+.auth .auth-card form {
+  margin: 10px 0;
+}
+.auth .auth-card form .form-group {
+  margin-top: 15px;
+}
+
+.auth .auth-card form label {
+  font-weight: 500;
+  font-size: 13px;
+}
+.auth .auth-card form input {
+  width: 100%;
+  margin-top: 7px;
+  line-height: 35px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  background-color: #edf2f7;
+  filter: none;
+}
+.auth .auth-card form input[type="text"],
+.auth .auth-card form input[type="password"],
+.auth .auth-card form input[type="email"] {
+  padding-left: 10px;
+  font-size: 13px;
+}
+.auth .auth-card form .validation-error {
+  margin-top: 5px;
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+}
+.auth .auth-card .auth-submit {
+  margin-top: 12px;
+  width: 100%;
+  line-height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: #043774;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.auth .auth-card .auth-submit:hover {
+  cursor: pointer;
+}
+.auth .auth-card .forgot-password {
+  text-align: right;
+}
+.auth .auth-card .forgot-password a {
+  font-size: 12px;
+  color: #043774;
+  font-weight: 500;
+}
+.auth .auth-card .forgot-password a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 1100px) {
+  .auth {
+    margin: 100px 30px;
+  }
+  .auth .auth-card {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .auth {
+    margin: 100px 30px;
+  }
+  .auth .auth-card {
+    width: 70%;
+  }
+  .auth .auth-card h3 {
+    font-size: 17px;
+    margin: 5px 0 0 0;
+  }
+  .auth .auth-card p {
+    font-size: 12px;
+    margin: 0 0 0 5px;
+  }
+  .auth .auth-card form label {
+    font-size: 12px;
+  }
+  .auth .auth-card .forgot-password a {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .auth {
+    margin: 100px 20px;
+  }
+  .auth .auth-card {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* The Overlay (background) */
+.overlay {
+  /* Height & width depends on how you want to reveal the overlay (see JS below) */   
+  height: 100%;
+  width: 0;
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 70px;
+  background-color: #fafafafa;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+  position: relative;
+  top: 30px; 
+  width: 100%;
+  text-align: center; /* Centered text/links */
+  margin-top: 10px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: black;
+  display: block; /* Display block instead of inline */
+  transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 10px;
+}
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+  .overlay a {
+    font-size: 20px
+  }
+}
+@media only screen and (max-width: 991px) {
+  .overlay a {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .overlay a:hover{
+    color: #043774;
+  }
+}
+
+
+
+/* Style for error messages on authentication pages */
+.messages {
+  position: relative;
+  margin: 10px 0;
+  padding: 10px 10px 10px 30px;
+  color: #fff;
+  background-color: #f44336;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.messages li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+/* Style for cancel icon */
+.messages::before {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  content: '\00d7'; /* Unicode character for "times" symbol */
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* Style for hover effect on cancel icon */
+.messages:hover::before {
+  color: #fff;
+}
+
+/* Style for JavaScript animation when hiding the message */
+.hide-message {
+  animation: hide-message 0.5s ease-out forwards;
+}
+
+@keyframes hide-message {
+  0% {
+    opacity: 1;
+    max-height: 100px;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+/* Center the chart div */
+#lineChartContainer{
+  
+}
