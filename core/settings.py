@@ -15,7 +15,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 
-print(os.getenv('MONGODB_URI'))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -155,7 +154,7 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_BEAT_SCHEDULE = {
     'generate_profit_loss': {
         'task': 'trade.tasks.generate_profit_loss',
-        'schedule': 10.0,  # Run every 60 seconds
+        'schedule': 60.0,  # Run every 60 seconds
     },
 }
 

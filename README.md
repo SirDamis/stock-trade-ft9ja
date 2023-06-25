@@ -57,7 +57,10 @@ Create your copy of the env file from the.env.example file and fill the credenti
 ```
 cp .env.example .env
 ```
-
+Create the 10 initial traders
+```bash
+python manage.py create_traders
+```
 
 Start the server and run the local development application using the command
 ```bash
@@ -77,7 +80,7 @@ celery -A core beat --loglevel=info
 celery -A core worker --loglevel=info
 ```
 
-The development server will be open at http://127.0.0.1:8000/
+The development server can be accessed at http://127.0.0.1:8000/
 
 ## Live URL
 Click this [link](/schema/swagger-ui/) to access the project link.
